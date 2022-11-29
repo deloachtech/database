@@ -12,6 +12,8 @@ Create a project database class that extends the `AbstractDatabase` class and ad
 ```php
 // Database.php
 
+use DeLoachTech\Database\AbstractDatabase;
+
 class Database extends AbstractDatabase {
 
     public function __construct(string $host, string $user, string $password, string $database, string $charset = 'utf8mb4')
