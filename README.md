@@ -3,6 +3,15 @@ Database
 
 The `AbstractDatabase` class used for our projects.
 
+
+Installation
+------------
+
+```bash
+composer require deloachtech/database
+```
+
+
 Usage
 -----
 
