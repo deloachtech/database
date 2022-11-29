@@ -1,6 +1,6 @@
 {
   "name": "deloachtech/database",
-  "description": "Database class",
+  "description": "The AbstractDatabase class used for our projects.",
   "type": "library",
   "license": "proprietary",
   "require": {
