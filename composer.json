@@ -1,0 +1,15 @@
+{
+  "name": "deloachtech/database",
+  "description": "Database class",
+  "type": "library",
+  "license": "proprietary",
+  "require": {
+    "php": ">=7.3.0",
+    "ext-pdo": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "DeLoachTech\\Database\\": "src/"
+    }
+  }
+}
