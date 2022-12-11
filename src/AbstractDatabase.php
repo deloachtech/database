@@ -73,7 +73,7 @@ abstract class AbstractDatabase
      * a boolean for UPDATE queries.
      * @param string $sql
      * @param array $variables
-     * @return bool|mixed
+     * @return bool|array
      */
     public function query(string $sql, array $variables = [])
     {
@@ -83,7 +83,7 @@ abstract class AbstractDatabase
                 return $array;
             }
             else {
-                return true;
+                return [];
             }
         }
         return false;
