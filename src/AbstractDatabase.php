@@ -70,7 +70,7 @@ abstract class AbstractDatabase
     /**
      * Prepares the sql string with the variables provided.
      * Returns an associative array for SELECT queries and
-     * a boolean for UPDATE queries.
+     * a boolean for INSERT/UPDATE queries.
      * @param string $sql
      * @param array $variables
      * @return bool|array
@@ -79,11 +79,10 @@ abstract class AbstractDatabase
     {
         $stmt = $this->pdo->prepare($sql);
         if ($stmt->execute($variables)) {
-            if ($array = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                return $array;
-            }
-            else {
-                return [];
+            if(!strstr(strtolower($sql), 'select')){
+                return $stmt->fetch(PDO::FETCH_ASSOC) ??[];
+            }else{
+                return true;
             }
         }
         return false;
