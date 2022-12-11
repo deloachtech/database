@@ -33,7 +33,7 @@ class Database extends AbstractDatabase {
     // Add methods as required
 }
 
-// Initilization Layer //
+// Initialization Layer //
 
 $db = new Database($host, $user, $password, $database, $charset);
 

@@ -61,20 +61,48 @@ abstract class AbstractDatabase
     }
 
 
+    public function gerError(): array
+    {
+        return ['code' => $this->pdo->errorCode(), 'info' => $this->pdo->errorInfo()];
+    }
+
+
+    /**
+     * Prepares the sql string with the variables provided.
+     * Returns an associative array for SELECT queries and
+     * a boolean for UPDATE queries.
+     * @param string $sql
+     * @param array $variables
+     * @return bool|mixed
+     */
     public function query(string $sql, array $variables = [])
     {
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute($variables);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($stmt->execute($variables)) {
+            if ($array = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return $array;
+            }
+            else {
+                return true;
+            }
+        }
+        return false;
     }
 
 
+    /**
+     * Prepares the sql string with the variables provided.
+     * Returns an array or false on execution failure.
+     * @param string $sql
+     * @param array $variables
+     * @return array|false
+     */
     public function queryList(string $sql, array $variables = [])
     {
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute($variables);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if($stmt->execute($variables)){
+            return $stmt->fetchAll(PDO::FETCH_ASSOC)??[];
+        }
+        return false;
     }
-
-
 }
