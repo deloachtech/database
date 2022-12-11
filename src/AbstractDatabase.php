@@ -79,7 +79,7 @@ abstract class AbstractDatabase
     {
         $stmt = $this->pdo->prepare($sql);
         if ($stmt->execute($variables)) {
-            if(!strstr(strtolower($sql), 'select')){
+            if(strstr(strtolower($sql), 'select')){
                 return $stmt->fetch(PDO::FETCH_ASSOC) ??[];
             }else{
                 return true;
