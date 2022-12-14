@@ -77,12 +77,13 @@ abstract class AbstractDatabase
      */
     public function query(string $sql, array $variables = [])
     {
-        $select = strstr(strtolower($sql), 'select') !== false;
-        
+        $select = strstr(strtolower($sql), 'select') != false;
+
         $stmt = $this->pdo->prepare($sql);
         if ($stmt->execute($variables)) {
             if($select){
-                return $stmt->fetch(PDO::FETCH_ASSOC) ??[];
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                return is_array($result) ? $result : [];
             }else{
                 return true;
             }
