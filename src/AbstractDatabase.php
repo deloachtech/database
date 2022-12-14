@@ -77,17 +77,37 @@ abstract class AbstractDatabase
      */
     public function query(string $sql, array $variables = [])
     {
+        $select = strstr(strtolower($sql), 'select') !== false;
+        
         $stmt = $this->pdo->prepare($sql);
         if ($stmt->execute($variables)) {
-            if(strstr(strtolower($sql), 'select')){
+            if($select){
                 return $stmt->fetch(PDO::FETCH_ASSOC) ??[];
             }else{
                 return true;
             }
         }
-        return false;
+        return $select ? [] : false;
     }
 
+
+    /**
+     * Returns an associative array of values (or empty array).
+     * @param string $sql
+     * @param array $variables
+     * @return array
+     */
+//    public function querySelect(string $sql, array $variables = []): array
+//    {
+//        $stmt = $this->pdo->prepare($sql);
+//        if ($stmt->execute($variables)) {
+//            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+//            if ($result !== false) {
+//                return $result;
+//            }
+//        }
+//        return [];
+//    }
 
     /**
      * Prepares the sql string with the variables provided.
