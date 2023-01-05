@@ -37,6 +37,17 @@ abstract class AbstractDatabase
     }
 
 
+    public function generateUniqueId(string $table, string $prefix = null, int $length = 20): string
+    {
+        $chars = '123456789abcdefghijklmnopqrstuvwxyzABCDEFGKIJKLMNOPQRSTUVWXYZ';
+        do {
+            $id = $prefix . substr(str_shuffle($chars), 0, ($length - strlen($prefix)));
+            $record = $this->query("select id from {$table} where id =?  limit 1", [$id]);
+        } while ($record);
+
+        return $id;
+    }
+
     public function inValues(array $stringIds): string
     {
         return "'" . implode("','", $stringIds) . "'";
